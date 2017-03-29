@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "t_categorie")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TCategorie.findAll", query = "SELECT t FROM TCategorie t")
+    @NamedQuery(name = TCategorie.FIND_ALL, query = "SELECT t FROM TCategorie t")
     , @NamedQuery(name = "TCategorie.findByIdCategoria", query = "SELECT t FROM TCategorie t WHERE t.idCategoria = :idCategoria")
     , @NamedQuery(name = "TCategorie.findByNome", query = "SELECT t FROM TCategorie t WHERE t.nome = :nome")})
 public class TCategorie implements Serializable {
@@ -49,7 +49,9 @@ public class TCategorie implements Serializable {
     private String nome;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCategoria")
     private Collection<TMovimenti> tMovimentiCollection;
-
+    
+    public static final String FIND_ALL="TCategorie.findAll";
+    
     public TCategorie() {
     }
 
