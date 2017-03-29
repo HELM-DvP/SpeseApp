@@ -31,11 +31,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "t_utenti")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TUtenti.findAll", query = "SELECT t FROM TUtenti t")
+    @NamedQuery(name = TUtenti.FIND_ALL, query = "SELECT t FROM TUtenti t")
     , @NamedQuery(name = "TUtenti.findByIdUtente", query = "SELECT t FROM TUtenti t WHERE t.idUtente = :idUtente")
     , @NamedQuery(name = "TUtenti.findByUser", query = "SELECT t FROM TUtenti t WHERE t.user = :user")
     , @NamedQuery(name = "TUtenti.findByPwd", query = "SELECT t FROM TUtenti t WHERE t.pwd = :pwd")
-    , @NamedQuery(name = "TUtenti.findByMail", query = "SELECT t FROM TUtenti t WHERE t.mail = :mail")})
+    , @NamedQuery(name = "TUtenti.findByMail", query = "SELECT t FROM TUtenti t WHERE t.mail = :mail")
+    , @NamedQuery(name = TUtenti.FIND_BY_USER_AND_PWD, query="SELECT t FROM TUtenti t WHERE t.user= :user AND t.pwd= :pwd")
+})
 public class TUtenti implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,6 +64,9 @@ public class TUtenti implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUtente")
     private Collection<TMovimenti> tMovimentiCollection;
 
+    public static final String FIND_ALL="TUtenti.findAll";
+    public static final String FIND_BY_USER_AND_PWD="TUtenti.findByUserPwd";
+    
     public TUtenti() {
     }
 
