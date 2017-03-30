@@ -36,8 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = TCategorie.FIND_ALL, query = "SELECT t FROM TCategorie t")
     , @NamedQuery(name = "TCategorie.findByIdCategoria", query = "SELECT t FROM TCategorie t WHERE t.idCategoria = :idCategoria")
     , @NamedQuery(name = "TCategorie.findByNome", query = "SELECT t FROM TCategorie t WHERE t.nome = :nome")
-    , @NamedQuery(name = TCategorie.FIND_BY_USER_AND_GENERAL,
-            query = "SELECT t FROM TCategorie t WHERE t.idUtente = :idUtente AND t.idUtente = 1")})//trova categorie utente loggato e utente generale
+    , @NamedQuery(name = TCategorie.FIND_BY_USER_AND_GENERAL, query = "SELECT t FROM TCategorie t WHERE t.idUtente = :idUtente OR t.idUtente = 1")})//trova categorie utente loggato e utente generale
 
 public class TCategorie implements Serializable {
 

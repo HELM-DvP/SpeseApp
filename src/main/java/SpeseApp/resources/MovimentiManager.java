@@ -37,5 +37,7 @@ public class MovimentiManager {
         TMovimenti m = em.find(TMovimenti.class, id);
         em.remove(m);
     }
+    
+    
 
 }
