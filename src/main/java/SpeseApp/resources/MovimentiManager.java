@@ -18,17 +18,24 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class MovimentiManager {
-     @PersistenceContext
+
+    @PersistenceContext
     private EntityManager em;
-    
-    public List<TMovimenti> movimentiByCategorie(List<TCategorie> categorie){
+
+    //ritorna lista di categorie, di numero variabile, selezionate dall'utente
+    public List<TMovimenti> movimentiByCategorie(List<TCategorie> categorie) {
         return em.createQuery("select e from TMovimenti e where e.idCategoria in :cat")
                 .setParameter("cat", categorie)
                 .getResultList();
     }
-    
-    public void remove (int id){
-        
+
+    public TMovimenti save(TMovimenti m) {
+        return em.merge(m);
     }
     
+    public void remove(int id) {
+        TMovimenti m = em.find(TMovimenti.class, id);
+        em.remove(m);
+    }
+
 }

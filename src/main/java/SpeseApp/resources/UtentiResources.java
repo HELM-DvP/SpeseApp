@@ -82,10 +82,10 @@ public class UtentiResources {
                     .header("caused-by", "login failed")
                     .build();
         }
-
+        System.out.println(finded + " loggato...");
         JsonObject json = Json
                 .createObjectBuilder()
-                .add("id_token", finded.getIdUtente())
+//                .add("id_token", finded.getIdUtente())
                 .build();
         return Response.ok(json).build();
     }
