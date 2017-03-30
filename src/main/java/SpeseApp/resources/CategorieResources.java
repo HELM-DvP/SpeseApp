@@ -5,10 +5,16 @@
  */
 package SpeseApp.resources;
 
+import javax.ejb.Stateless;
+import javax.ws.rs.Path;
+
 /**
  *
  * @author tss
  */
+
+@Stateless
+@Path("categorie")
 public class CategorieResources {
     
 }
