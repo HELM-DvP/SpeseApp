@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TUtenti.findByUser", query = "SELECT t FROM TUtenti t WHERE t.user = :user")
     , @NamedQuery(name = "TUtenti.findByPwd", query = "SELECT t FROM TUtenti t WHERE t.pwd = :pwd")
     , @NamedQuery(name = "TUtenti.findByMail", query = "SELECT t FROM TUtenti t WHERE t.mail = :mail")
-    , @NamedQuery(name = TUtenti.FIND_BY_USER_AND_PWD, query="SELECT t FROM TUtenti t WHERE t.user= :user AND t.pwd= :pwd")
+    , @NamedQuery(name = TUtenti.FIND_BY_USER_AND_PWD, query = "SELECT t FROM TUtenti t WHERE t.user= :user AND t.pwd= :pwd")
 })
 public class TUtenti implements Serializable {
 
@@ -63,10 +63,12 @@ public class TUtenti implements Serializable {
     private String mail;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUtente")
     private Collection<TMovimenti> tMovimentiCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUtente")
+    private Collection<TCategorie> tCategorieCollection;
 
-    public static final String FIND_ALL="TUtenti.findAll";
-    public static final String FIND_BY_USER_AND_PWD="TUtenti.findByUserPwd";
-    
+    public static final String FIND_ALL = "TUtenti.findAll";
+    public static final String FIND_BY_USER_AND_PWD = "TUtenti.findByUserPwd";
+
     public TUtenti() {
     }
 
@@ -122,6 +124,15 @@ public class TUtenti implements Serializable {
         this.tMovimentiCollection = tMovimentiCollection;
     }
 
+    @XmlTransient
+    public Collection<TCategorie> getTCategorieCollection() {
+        return tCategorieCollection;
+    }
+
+    public void setTCategorieCollection(Collection<TCategorie> tCategorieCollection) {
+        this.tCategorieCollection = tCategorieCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -146,5 +157,5 @@ public class TUtenti implements Serializable {
     public String toString() {
         return "SpeseApp.entity.TUtenti[ idUtente=" + idUtente + " ]";
     }
-    
+
 }

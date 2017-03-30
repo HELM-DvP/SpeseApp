@@ -59,9 +59,6 @@ public class TMovimenti implements Serializable {
     @Size(max = 50)
     @Column(name = "descrizione")
     private String descrizione;
-    @JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo")
-    @ManyToOne(optional = false)
-    private TTipi idTipo;
     @JoinColumn(name = "id_utente", referencedColumnName = "id_utente")
     @ManyToOne(optional = false)
     private TUtenti idUtente;
@@ -71,6 +68,9 @@ public class TMovimenti implements Serializable {
     @JoinColumn(name = "id_freq", referencedColumnName = "id_freq")
     @ManyToOne(optional = false)
     private TFreq idFreq;
+    @JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo")
+    @ManyToOne(optional = false)
+    private TTipi idTipo;
 
     public TMovimenti() {
     }
@@ -117,14 +117,6 @@ public class TMovimenti implements Serializable {
         this.descrizione = descrizione;
     }
 
-    public TTipi getIdTipo() {
-        return idTipo;
-    }
-
-    public void setIdTipo(TTipi idTipo) {
-        this.idTipo = idTipo;
-    }
-
     public TUtenti getIdUtente() {
         return idUtente;
     }
@@ -147,6 +139,14 @@ public class TMovimenti implements Serializable {
 
     public void setIdFreq(TFreq idFreq) {
         this.idFreq = idFreq;
+    }
+
+    public TTipi getIdTipo() {
+        return idTipo;
+    }
+
+    public void setIdTipo(TTipi idTipo) {
+        this.idTipo = idTipo;
     }
 
     @Override

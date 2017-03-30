@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = TCategorie.FIND_ALL, query = "SELECT t FROM TCategorie t")
     , @NamedQuery(name = "TCategorie.findByIdCategoria", query = "SELECT t FROM TCategorie t WHERE t.idCategoria = :idCategoria")
     , @NamedQuery(name = "TCategorie.findByNome", query = "SELECT t FROM TCategorie t WHERE t.nome = :nome")})
+
 public class TCategorie implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,7 +52,10 @@ public class TCategorie implements Serializable {
     private String nome;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCategoria")
     private Collection<TMovimenti> tMovimentiCollection;
-    
+    @JoinColumn(name = "id_utente", referencedColumnName = "id_utente")
+    @ManyToOne(optional = false)
+    private TUtenti idUtente;
+
     public static final String FIND_ALL="TCategorie.findAll";
     
     public TCategorie() {
@@ -87,6 +93,14 @@ public class TCategorie implements Serializable {
 
     public void setTMovimentiCollection(Collection<TMovimenti> tMovimentiCollection) {
         this.tMovimentiCollection = tMovimentiCollection;
+    }
+
+    public TUtenti getIdUtente() {
+        return idUtente;
+    }
+
+    public void setIdUtente(TUtenti idUtente) {
+        this.idUtente = idUtente;
     }
 
     @Override
