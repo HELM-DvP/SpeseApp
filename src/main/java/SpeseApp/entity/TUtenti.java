@@ -83,6 +83,12 @@ public class TUtenti implements Serializable {
         this.mail = mail;
     }
 
+    public TUtenti(String user, String pwd, String mail) {
+        this.user = user;
+        this.pwd = pwd;
+        this.mail = mail;
+    }
+
     public Integer getIdUtente() {
         return idUtente;
     }

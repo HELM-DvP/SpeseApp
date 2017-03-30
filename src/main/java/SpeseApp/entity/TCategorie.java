@@ -35,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = TCategorie.FIND_ALL, query = "SELECT t FROM TCategorie t")
     , @NamedQuery(name = "TCategorie.findByIdCategoria", query = "SELECT t FROM TCategorie t WHERE t.idCategoria = :idCategoria")
-    , @NamedQuery(name = "TCategorie.findByNome", query = "SELECT t FROM TCategorie t WHERE t.nome = :nome")})
+    , @NamedQuery(name = "TCategorie.findByNome", query = "SELECT t FROM TCategorie t WHERE t.nome = :nome")
+    , @NamedQuery(name = TCategorie.FIND_BY_USER_AND_GENERAL,
+            query = "SELECT t FROM TCategorie t WHERE t.idUtente = :idUtente AND t.idUtente = 1")})//trova categorie utente loggato e utente generale
 
 public class TCategorie implements Serializable {
 
@@ -56,8 +58,9 @@ public class TCategorie implements Serializable {
     @ManyToOne(optional = false)
     private TUtenti idUtente;
 
-    public static final String FIND_ALL="TCategorie.findAll";
-    
+    public static final String FIND_ALL = "TCategorie.findAll";
+    public static final String FIND_BY_USER_AND_GENERAL = "TCategorie.findByUserAndGeneral";
+
     public TCategorie() {
     }
 
@@ -127,5 +130,5 @@ public class TCategorie implements Serializable {
     public String toString() {
         return "SpeseApp.entity.TCategorie[ idCategoria=" + idCategoria + " ]";
     }
-    
+
 }

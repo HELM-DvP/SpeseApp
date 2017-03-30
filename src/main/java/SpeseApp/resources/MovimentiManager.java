@@ -26,4 +26,9 @@ public class MovimentiManager {
                 .setParameter("cat", categorie)
                 .getResultList();
     }
+    
+    public void remove (int id){
+        
+    }
+    
 }
