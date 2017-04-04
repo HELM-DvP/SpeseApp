@@ -33,11 +33,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "t_movimenti")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TMovimenti.findAll", query = "SELECT t FROM TMovimenti t")
+    @NamedQuery(name = TMovimenti.FIND_ALL, query = "SELECT t FROM TMovimenti t")
     , @NamedQuery(name = "TMovimenti.findByIdMovimento", query = "SELECT t FROM TMovimenti t WHERE t.idMovimento = :idMovimento")
     , @NamedQuery(name = "TMovimenti.findByData", query = "SELECT t FROM TMovimenti t WHERE t.data = :data")
     , @NamedQuery(name = "TMovimenti.findByImporto", query = "SELECT t FROM TMovimenti t WHERE t.importo = :importo")
-    , @NamedQuery(name = "TMovimenti.findByDescrizione", query = "SELECT t FROM TMovimenti t WHERE t.descrizione = :descrizione")})
+    , @NamedQuery(name = "TMovimenti.findByDescrizione", query = "SELECT t FROM TMovimenti t WHERE t.descrizione = :descrizione")
+    , @NamedQuery(name= TMovimenti.FIND_BY_USER, query="SELECT t FROM TMovimenti t WHERE t.Utente.idUtente= :idUtente")
+    })
 public class TMovimenti implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,16 +63,19 @@ public class TMovimenti implements Serializable {
     private String descrizione;
     @JoinColumn(name = "id_utente", referencedColumnName = "id_utente")
     @ManyToOne(optional = false)
-    private TUtenti idUtente;
+    private TUtenti Utente;
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
     @ManyToOne(optional = false)
-    private TCategorie idCategoria;
+    private TCategorie Categoria;
     @JoinColumn(name = "id_freq", referencedColumnName = "id_freq")
     @ManyToOne(optional = false)
-    private TFreq idFreq;
+    private TFreq Freq;
     @JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo")
     @ManyToOne(optional = false)
-    private TTipi idTipo;
+    private TTipi Tipo;
+    
+    public static final String FIND_ALL="TMovimenti.findAll";
+    public static final String FIND_BY_USER="TMovimenti.findByUser";
 
     public TMovimenti() {
     }
@@ -117,36 +122,36 @@ public class TMovimenti implements Serializable {
         this.descrizione = descrizione;
     }
 
-    public TUtenti getIdUtente() {
-        return idUtente;
+    public TUtenti getUtente() {
+        return Utente;
     }
 
-    public void setIdUtente(TUtenti idUtente) {
-        this.idUtente = idUtente;
+    public void setUtente(TUtenti Utente) {
+        this.Utente = Utente;
     }
 
-    public TCategorie getIdCategoria() {
-        return idCategoria;
+    public TCategorie getCategoria() {
+        return Categoria;
     }
 
-    public void setIdCategoria(TCategorie idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setCategoria(TCategorie Categoria) {
+        this.Categoria = Categoria;
     }
 
-    public TFreq getIdFreq() {
-        return idFreq;
+    public TFreq getFreq() {
+        return Freq;
     }
 
-    public void setIdFreq(TFreq idFreq) {
-        this.idFreq = idFreq;
+    public void setFreq(TFreq Freq) {
+        this.Freq = Freq;
     }
 
-    public TTipi getIdTipo() {
-        return idTipo;
+    public TTipi getTipo() {
+        return Tipo;
     }
 
-    public void setIdTipo(TTipi idTipo) {
-        this.idTipo = idTipo;
+    public void setTipo(TTipi Tipo) {
+        this.Tipo = Tipo;
     }
 
     @Override

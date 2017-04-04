@@ -7,6 +7,7 @@ package SpeseApp.resources;
 
 import SpeseApp.entity.TCategorie;
 import SpeseApp.entity.TMovimenti;
+import SpeseApp.entity.TTipi;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -38,6 +39,12 @@ public class MovimentiManager {
         em.remove(m);
     }
     
+    public List<TMovimenti> findAll(){
+        return em.createNamedQuery(TMovimenti.FIND_ALL).getResultList();
+    }
     
-
+    
+    public List<TMovimenti> findByUser(int id){
+        return em.createNamedQuery(TMovimenti.FIND_BY_USER).setParameter("idUtente", id).getResultList();
+    }
 }

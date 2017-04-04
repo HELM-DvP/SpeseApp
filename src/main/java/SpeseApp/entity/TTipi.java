@@ -47,7 +47,7 @@ public class TTipi implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "tipo")
     private String tipo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Tipo")
     private Collection<TMovimenti> tMovimentiCollection;
 
     public TTipi() {

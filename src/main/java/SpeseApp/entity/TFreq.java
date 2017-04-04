@@ -47,7 +47,7 @@ public class TFreq implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "frequenza")
     private String frequenza;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFreq")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Freq")
     private Collection<TMovimenti> tMovimentiCollection;
 
     public TFreq() {

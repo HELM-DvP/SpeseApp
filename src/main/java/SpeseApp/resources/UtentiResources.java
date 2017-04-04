@@ -52,6 +52,7 @@ public class UtentiResources {
     }
 
     @POST
+    @Path("crea")
     @Consumes(MediaType.APPLICATION_JSON)
     public TUtenti create(TUtenti utente) {
         return utentiManager.save(utente);

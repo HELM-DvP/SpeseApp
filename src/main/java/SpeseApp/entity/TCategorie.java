@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = TCategorie.FIND_ALL, query = "SELECT t FROM TCategorie t")
     , @NamedQuery(name = "TCategorie.findByIdCategoria", query = "SELECT t FROM TCategorie t WHERE t.idCategoria = :idCategoria")
     , @NamedQuery(name = "TCategorie.findByNome", query = "SELECT t FROM TCategorie t WHERE t.nome = :nome")
-    , @NamedQuery(name = TCategorie.FIND_BY_USER_AND_GENERAL, query = "SELECT t FROM TCategorie t WHERE t.idUtente = :idUtente OR t.idUtente = 1")})//trova categorie utente loggato e utente generale
+    , @NamedQuery(name = TCategorie.FIND_BY_USER_AND_GENERAL, query = "SELECT t FROM TCategorie t WHERE t.Utente.idUtente = :idUtente OR t.Utente.idUtente = 1")
+    , @NamedQuery(name= TCategorie.FIND_BY_USER, query="SELECT t FROM TCategorie t WHERE t.Utente.idUtente = :idUtente")  })//trova categorie utente loggato e utente generale
 
 public class TCategorie implements Serializable {
 
@@ -51,14 +52,15 @@ public class TCategorie implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "nome")
     private String nome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCategoria")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Categoria")
     private Collection<TMovimenti> tMovimentiCollection;
     @JoinColumn(name = "id_utente", referencedColumnName = "id_utente")
     @ManyToOne(optional = false)
-    private TUtenti idUtente;
+    private TUtenti Utente;
 
     public static final String FIND_ALL = "TCategorie.findAll";
     public static final String FIND_BY_USER_AND_GENERAL = "TCategorie.findByUserAndGeneral";
+    public static final String FIND_BY_USER="TCategorie.findByUser";
 
     public TCategorie() {
     }
@@ -97,12 +99,12 @@ public class TCategorie implements Serializable {
         this.tMovimentiCollection = tMovimentiCollection;
     }
 
-    public TUtenti getIdUtente() {
-        return idUtente;
+    public TUtenti getUtente() {
+        return Utente;
     }
 
-    public void setIdUtente(TUtenti idUtente) {
-        this.idUtente = idUtente;
+    public void setUtente(TUtenti Utente) {
+        this.Utente = Utente;
     }
 
     @Override

@@ -6,7 +6,6 @@
 package SpeseApp.resources;
 
 import SpeseApp.entity.TCategorie;
-import SpeseApp.entity.TUtenti;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -35,8 +34,8 @@ public class CategorieManager {
         return em.createNamedQuery(TCategorie.FIND_ALL).getResultList();
     }
     
-    public List<TCategorie> findByUserAndGeneral(int id) {
-        return em.createNamedQuery(TCategorie.FIND_BY_USER_AND_GENERAL).setParameter("id_utente", id).getResultList();
+    public List<TCategorie> findByUser(int id) {
+        return em.createNamedQuery(TCategorie.FIND_BY_USER).setParameter("idUtente", id).getResultList();
     }
 
     

@@ -61,9 +61,9 @@ public class TUtenti implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "mail")
     private String mail;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUtente")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Utente")
     private Collection<TMovimenti> tMovimentiCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUtente")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Utente")
     private Collection<TCategorie> tCategorieCollection;
 
     public static final String FIND_ALL = "TUtenti.findAll";
