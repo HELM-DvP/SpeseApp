@@ -6,11 +6,14 @@
 package SpeseApp.resources;
 
 import SpeseApp.entity.TCategorie;
-import SpeseApp.entity.TUtenti;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -28,6 +31,9 @@ import javax.ws.rs.core.MediaType;
 public class CategorieResources {
 
     @Inject
+    TokenManager tokenManager;
+
+    @Inject
     CategorieManager categorieManager;
 
     @Inject
@@ -43,16 +49,52 @@ public class CategorieResources {
 
     @GET
     @Path("{id}")
-    public List<TCategorie> findUser(@PathParam("id") int id) {
-        return categorieManager.findByUser(id);
+    public List<TCategorie> findByUserAndGeneral(@PathParam("id") int id) {
+        return categorieManager.findByUserAndGeneral(id);
     }
     
+    
+    //non funziona
+    @DELETE
+    @Path("{id}")
+    @TokenNeeded
+    public void cancellaCat(@PathParam("id") int idC) {
+        System.out.println("**************** entro...");
+        int c = categorieManager.findUserByIdCategoria(idC);
+        if (c == 1) {
+            System.out.println("********************** non puoi cancellare una categoria predefinita!!!");
+        } else {
+            categorieManager.remove(idC);
+        }
+
+    }
+    
+    
+    
+    //OK
+    @POST
+    @Path("crea")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @TokenNeeded
+    public TCategorie create(TCategorie categoria) {
+        categoria.setUtente(tokenManager.getCurrentUser());
+        return categorieManager.save(categoria);
+    }
+
+    @PUT
+    @Path("{id}")
+    @TokenNeeded
+    public void update(@PathParam("id") int id, TCategorie c) {
+        System.out.println("************* update entro");
+        if (id != c.getIdCategoria()) {
+            System.out.println("generare errore..");
+        }
+        c.setUtente(tokenManager.getCurrentUser());
+        categorieManager.save(c);
+    }
 //    @GET
 //    @Path("specifica")
 //    public List<TCategorie> findUserAndGeneral() {
 //        return categorieManager.findByUserAndGeneral(10);
 //    }
-    
-    
-    
 }

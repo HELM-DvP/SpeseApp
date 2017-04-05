@@ -34,10 +34,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = TCategorie.FIND_ALL, query = "SELECT t FROM TCategorie t")
-    , @NamedQuery(name = "TCategorie.findByIdCategoria", query = "SELECT t FROM TCategorie t WHERE t.idCategoria = :idCategoria")
+    , @NamedQuery(name = TCategorie.FIND_BY_ID, query = "SELECT t FROM TCategorie t WHERE t.idCategoria = :idCategoria")
     , @NamedQuery(name = "TCategorie.findByNome", query = "SELECT t FROM TCategorie t WHERE t.nome = :nome")
     , @NamedQuery(name = TCategorie.FIND_BY_USER_AND_GENERAL, query = "SELECT t FROM TCategorie t WHERE t.Utente.idUtente = :idUtente OR t.Utente.idUtente = 1")
-    , @NamedQuery(name= TCategorie.FIND_BY_USER, query="SELECT t FROM TCategorie t WHERE t.Utente.idUtente = :idUtente")  })//trova categorie utente loggato e utente generale
+    , @NamedQuery(name = TCategorie.FIND_BY_USER, query = "SELECT t FROM TCategorie t WHERE t.Utente.idUtente = :idUtente")
+    , @NamedQuery(name = TCategorie.FIND_USER_BY_IDCATEGORIA, query = "SELECT t.Utente.idUtente FROM TCategorie t WHERE t.idCategoria = :idCategoria")})
 
 public class TCategorie implements Serializable {
 
@@ -60,7 +61,9 @@ public class TCategorie implements Serializable {
 
     public static final String FIND_ALL = "TCategorie.findAll";
     public static final String FIND_BY_USER_AND_GENERAL = "TCategorie.findByUserAndGeneral";
-    public static final String FIND_BY_USER="TCategorie.findByUser";
+    public static final String FIND_BY_USER = "TCategorie.findByUser";
+    public static final String FIND_BY_ID = "TCategorie.findByIdCat";
+    public static final String FIND_USER_BY_IDCATEGORIA = "TCategorie.findUserByIdCategoria";
 
     public TCategorie() {
     }

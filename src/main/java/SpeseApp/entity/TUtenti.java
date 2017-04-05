@@ -158,7 +158,7 @@ public class TUtenti implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "SpeseApp.entity.TUtenti[ idUtente=" + idUtente + " ]";

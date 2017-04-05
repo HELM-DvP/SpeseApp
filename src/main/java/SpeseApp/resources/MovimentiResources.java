@@ -43,4 +43,6 @@ public class MovimentiResources {
     public List<TMovimenti> findByUser(@PathParam("id") int id){
         return movimentiManager.findByUser(id);
     }
+    
+    
 }
