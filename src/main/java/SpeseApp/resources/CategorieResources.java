@@ -31,24 +31,24 @@ import javax.ws.rs.core.MediaType;
 @Path("categorie")
 @Produces({MediaType.APPLICATION_JSON})
 public class CategorieResources {
-    
+
     @Inject
     TokenManager tokenManager;
-    
+
     @Inject
     CategorieManager categorieManager;
-    
+
     @Inject
     UtentiManager utentiManager;
-    
+
     @Context
     HttpHeaders httpHeaders;
-    
+
     @GET
     public List<TCategorie> findAll() {
         return categorieManager.findAll();
     }
-    
+
     @GET
     @Path("{id}")
     public List<TCategorie> findByUserAndGeneral(@PathParam("id") int id) {
@@ -61,13 +61,17 @@ public class CategorieResources {
     @TokenNeeded
     public void cancellaCat(@PathParam("id") int id) {
         System.out.println("**************** entro...");
-        
-        if (id == 1) {
+
+        int idUtente = categorieManager.findUserByIdCategoria(id);
+
+//        TUtenti tmpu=tokenManager.getCurrentUser();
+//        if (tmpu.getIdUtente() == 1) {
+        if (idUtente == 1) {
             System.out.println("********************** non puoi cancellare una categoria predefinita!!!");
         } else {
             categorieManager.remove(id);
         }
-        
+
     }
 
     //OK

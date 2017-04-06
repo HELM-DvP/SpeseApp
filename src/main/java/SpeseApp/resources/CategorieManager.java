@@ -48,7 +48,7 @@ public class CategorieManager {
     }
     
     public int findUserByIdCategoria(int id) {       
-        return (Integer) em.createNamedQuery(TCategorie.FIND_USER_BY_IDCATEGORIA).setParameter("id_categoria", id).getSingleResult();
+        return (Integer) em.createNamedQuery(TCategorie.FIND_USER_BY_IDCATEGORIA).setParameter("idCategoria", id).getSingleResult();
     }
 //    public List<TCategorie> findById(List<TCategorie> search) {
 //        return em.createQuery("select e from TCategorie e where e in :cat")
