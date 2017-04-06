@@ -6,7 +6,9 @@
 package SpeseApp.resources;
 
 import SpeseApp.entity.TCategorie;
+import SpeseApp.entity.TUtenti;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -29,48 +31,45 @@ import javax.ws.rs.core.MediaType;
 @Path("categorie")
 @Produces({MediaType.APPLICATION_JSON})
 public class CategorieResources {
-
+    
     @Inject
     TokenManager tokenManager;
-
+    
     @Inject
     CategorieManager categorieManager;
-
+    
     @Inject
     UtentiManager utentiManager;
-
+    
     @Context
     HttpHeaders httpHeaders;
-
+    
     @GET
     public List<TCategorie> findAll() {
         return categorieManager.findAll();
     }
-
+    
     @GET
     @Path("{id}")
     public List<TCategorie> findByUserAndGeneral(@PathParam("id") int id) {
         return categorieManager.findByUserAndGeneral(id);
     }
-    
-    
-    //non funziona
+
+    //OK
     @DELETE
     @Path("{id}")
     @TokenNeeded
-    public void cancellaCat(@PathParam("id") int idC) {
+    public void cancellaCat(@PathParam("id") int id) {
         System.out.println("**************** entro...");
-        int c = categorieManager.findUserByIdCategoria(idC);
-        if (c == 1) {
+        
+        if (id == 1) {
             System.out.println("********************** non puoi cancellare una categoria predefinita!!!");
         } else {
-            categorieManager.remove(idC);
+            categorieManager.remove(id);
         }
-
+        
     }
-    
-    
-    
+
     //OK
     @POST
     @Path("crea")
@@ -81,16 +80,29 @@ public class CategorieResources {
         return categorieManager.save(categoria);
     }
 
+    /*
+    curl -i -X PUT -H 'id_token:10' -H 'Content-Type: application/json' -d '{"idCategoria":5,"nome":"cagne"}' http://localhost:8080/SpeseApp/resources/categorie/
+     */
+    //MANCA CONTROLLO SU PROPRIETARIO CATEGORIE
     @PUT
     @Path("{id}")
     @TokenNeeded
     public void update(@PathParam("id") int id, TCategorie c) {
         System.out.println("************* update entro");
-        if (id != c.getIdCategoria()) {
-            System.out.println("generare errore..");
-        }
+
+//        if (!Objects.equals(id, c.getIdCategoria())) {
+//            System.out.println("generare errore..");
+//        } else {
         c.setUtente(tokenManager.getCurrentUser());
+        c.setIdCategoria(id);
         categorieManager.save(c);
+//        }
+
+//        if (categorieManager.findUserByIdCategoria(c.getIdCategoria()) == 1) {
+//            System.out.println("generare errore..");
+//        }
+//        c.setUtente(tokenManager.getCurrentUser());
+//        categorieManager.save(c);
     }
 //    @GET
 //    @Path("specifica")

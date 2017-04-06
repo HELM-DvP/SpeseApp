@@ -38,8 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "TMovimenti.findByData", query = "SELECT t FROM TMovimenti t WHERE t.data = :data")
     , @NamedQuery(name = "TMovimenti.findByImporto", query = "SELECT t FROM TMovimenti t WHERE t.importo = :importo")
     , @NamedQuery(name = "TMovimenti.findByDescrizione", query = "SELECT t FROM TMovimenti t WHERE t.descrizione = :descrizione")
-    , @NamedQuery(name= TMovimenti.FIND_BY_USER, query="SELECT t FROM TMovimenti t WHERE t.Utente.idUtente= :idUtente")
-    })
+    , @NamedQuery(name = TMovimenti.FIND_BY_USER, query = "SELECT t FROM TMovimenti t WHERE t.Utente.idUtente= :idUtente")
+})
 public class TMovimenti implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,7 +52,7 @@ public class TMovimenti implements Serializable {
     @NotNull
     @Column(name = "data")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date data;
+    private Date data = new Date();
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -73,9 +73,9 @@ public class TMovimenti implements Serializable {
     @JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo")
     @ManyToOne(optional = false)
     private TTipi Tipo;
-    
-    public static final String FIND_ALL="TMovimenti.findAll";
-    public static final String FIND_BY_USER="TMovimenti.findByUser";
+
+    public static final String FIND_ALL = "TMovimenti.findAll";
+    public static final String FIND_BY_USER = "TMovimenti.findByUser";
 
     public TMovimenti() {
     }
@@ -178,5 +178,5 @@ public class TMovimenti implements Serializable {
     public String toString() {
         return "SpeseApp.entity.TMovimenti[ idMovimento=" + idMovimento + " ]";
     }
-    
+
 }
