@@ -1,0 +1,12 @@
+AVVERTENZE PER UN USO CORRETTO DEL PROGRAMMA
+
+Elementi fondamentali:
+1) Db MySQL
+2) backend lato server (Java Enterprise)
+3) frontend lato client (Polymer)
+
+1a) Possiamo creare il nostro DB con il nome "db_spese" e lasciare che le tabelle vengano create e popolate direttamente 
+dal programma Java (lato server) dopo aver fatto le opportune modifiche. In alternativa si può scaricare il db (formato zip) ed importarlo 
+sul nostro MySQL locale
+
+2a) Se vogliam che il nostro programma Java (lato server) crei in automatico le tabelle al nostro database è necessario andare a modificare il file "persistence.xml" cambiando l'opzione del "Table Generation Strategy" da "NONE" a "DROP and CREATE". In questo modo il contenuto del nostro database verrà cancellato e ricreato ad ogni apertura! Questa opzione si consiglia di utilizzarla solo per la prima importazione e successivamente è meglio ripristirare il valore a NONE
